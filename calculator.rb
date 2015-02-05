@@ -53,19 +53,14 @@ begin
   result = nil
 
   case operator.to_i
-
     when 1
       result = first_number.to_f + second_number.to_f
-    
     when 2
       result = first_number.to_f - second_number.to_f
-
     when 3
       result = first_number.to_f * second_number.to_f
-
     when 4
       result = first_number.to_f / second_number.to_f
-
     else
       puts "\n\nInvalid entry\n\n"
   end
