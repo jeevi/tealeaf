@@ -25,7 +25,7 @@ begin
   say "\n\nYou chose #{user_choice}, you nemesis chose #{nemesis_choice}\n\n"
 
   case user_choice
-  	when 'Rock'
+     when 'Rock'
       case nemesis_choice
         when 'Paper'
           say "YOU LOSE!"
