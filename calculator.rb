@@ -1,8 +1,9 @@
+
 def say(msg)
 	puts "=> #{msg}"
 end
 
-def check_if_number(arr)
+def is_a_number?(arr)
   arr.each do |char|
     ascii_val = char.ord
     if !ascii_val.between?(48,57); return false end
@@ -10,62 +11,69 @@ def check_if_number(arr)
   true
 end
 
+def is_a_floating_point?(arr)
+  # number could be a floating point
+  points = arr.select {|e| e == "."}
+  not_a_valid_number = false
+  if points.length == 1
+    # float has only one decimal point
+    arr.delete(".")
+    not_a_valid_number |= !is_a_number?(arr)
+  else
+    # invalid entry
+    not_a_valid_number |= true
+  end
+  not_a_valid_number
+end
+
 def parse_entry(nth_number)
   begin
   	say "Enter the #{nth_number} number"
   	number = gets.chomp
     individual_chars = number.chars
-    #if individual_chars[0] == "-"; individual_chars.delete("-") end
-    flag  = false
+    not_a_valid_number  = false
     if individual_chars.include? "."
-      # number could be a floating point
-      points = individual_chars.select {|e| e == "."}
-      if points.length == 1
-        # float has only one decimal point
-        individual_chars.delete(".")
-        flag |= !check_if_number(individual_chars)
-      else
-        # invalid entry
-        flag |= true
-      end
+      not_a_valid_number |= is_a_floating_point?(individual_chars)
     else
       # not a float, could be an integer
-      flag |= !check_if_number(individual_chars)
+      not_a_valid_number |= !is_a_number?(individual_chars)
     end
-  end while flag
+  end while not_a_valid_number
   number
 end
 
-num1 = parse_entry("first")
-num2 = parse_entry("second")
+begin
+  first_number = parse_entry("first")
+  second_number = parse_entry("second")
 
-say "choose one of the following \n 1) addition \n 2) subtraction  
-    3) multiplication \n 4)division\n"
+  say "\n\nchoose one of the following \n 1) addition \n 2) subtraction  
+      3) multiplication \n 4)division\n\n"
 
-op = gets.chomp
-result = nil
+  operator = gets.chomp
+  result = nil
 
-case op.to_i
+  case operator.to_i
 
-  when 1
-    result = num1.to_f + num2.to_f
-  
-  when 2
-    result = num1.to_f - num2.to_f
+    when 1
+      result = first_number.to_f + second_number.to_f
+    
+    when 2
+      result = first_number.to_f - second_number.to_f
 
-  when 3
-    result = num1.to_f * num2.to_f
+    when 3
+      result = first_number.to_f * second_number.to_f
 
-  else
-    if num2  == 0
-      puts "divisor cannot be 0" 
-    else 
-      result = num1.to_f / num2.to_f
-    end
-end
+    when 4
+      result = first_number.to_f / second_number.to_f
 
-if result.floor == result 
-  puts result.to_i 
-else 
-  puts result
-end
+    else
+      puts "\n\nInvalid entry\n\n"
+  end
+
+  result.infinite? == 1 ? (puts "\nResult is Infinity\n") : \
+  result.floor == result ? (puts result.to_i) : (puts result)
+
+  say "Would you like to have fun again? (y/n)"
+  choice = gets.chomp
+
+end while choice == 'y' || choice == 'Y'
