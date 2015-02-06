@@ -1,11 +1,11 @@
 def say(msg)
-	puts "\n\n~~~~~~~~~~~~ #{msg} ~~~~~~~~~~~~\n\n"
+  puts "\n\n~~~~~~~~~~~~ #{msg} ~~~~~~~~~~~~\n\n"
 end
 
 def get_random_index
-	rand_instance = Random.new
-	rand_instance.seed
-	rand_instance.rand(100) % 3
+  rand_instance = Random.new
+  rand_instance.seed
+  rand_instance.rand(100) % 3
 end
 
 options = ['Rock', 'Paper', 'Scissors']
@@ -33,7 +33,7 @@ begin
           say "IT'S A DRAW"
         else
           say "YOU WIN"
-      end
+      	end
     when 'Paper'
       case nemesis_choice
         when 'Scissors'
@@ -42,7 +42,7 @@ begin
           say "IT'S A DRAW"
         else
           say "YOU WIN"
-      end
+      	end
     when 'Scissors'
       case nemesis_choice
         when 'Rock'
@@ -51,8 +51,8 @@ begin
           say "IT'S A DRAW"
         else
           say "YOU WIN"
-      end
-  end 
+      	end
+    end 
   say "Play again? (y/n)"
   continue = gets.chomp
 end while continue.downcase == 'y'
